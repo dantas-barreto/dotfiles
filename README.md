@@ -6,13 +6,19 @@ dependencias necessarias:
 - i3
 - vim
 - firefox
+- alacritty
+- nitrogen
+- picom
+- yay
 
 add:
 `exec startx`
 to .bash_profile
 
 add:
-`nitrogen --restore &
-picom -CGb &
-exec i3`
+```
+nitrogen --restore &  
+picom -CGb &  
+exec i3  
+```
 to .xinitrc
