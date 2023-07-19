@@ -12,7 +12,9 @@ dependencias necessarias:
 - yay
 
 add:
-`exec startx`
+```
+exec startx
+```
 to .bash_profile
 
 add:
