@@ -10,6 +10,7 @@ dependencias necessarias:
 - nitrogen
 - picom
 - yay
+- ranger
 
 add:
 ```
