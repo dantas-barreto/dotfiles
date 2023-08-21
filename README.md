@@ -11,6 +11,7 @@ dependencias necessarias:
 - picom
 - yay
 - ranger
+- pavucontrol
 
 add:
 ```
