@@ -13,6 +13,8 @@ dependencias necessarias:
 - ranger
 - thunar
 - pavucontrol
+- feh
+- imagemagick
 
 add:
 ```
