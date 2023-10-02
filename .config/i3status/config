@@ -15,6 +15,7 @@ order += "ipv6"
 order += "wireless _first_"
 order += "ethernet _first_"
 order += "disk /"
+order += "disk /home"
 order += "cpu_usage"
 order += "load"
 order += "memory"
@@ -33,6 +34,10 @@ ethernet _first_ {
 
 disk "/" {
     format = "/: %avail"
+}
+
+disk "/home" {
+    format = "/home: %avail"
 }
 
 cpu_usage {
