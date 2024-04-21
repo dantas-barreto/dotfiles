@@ -2,9 +2,10 @@
 
 dependencias necessarias:
 - xorg
-- xorg-init
+- xorg-xinit
 - i3
-- vim
+- dmenu (suckless.org)
+- neovim
 - firefox
 - alacritty
 - nitrogen
