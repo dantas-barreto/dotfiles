@@ -1,6 +1,0 @@
-2024/05/04-12:24:55.109 2aa3 Reusing MANIFEST /home/manjanga/.config/discord/Local Storage/leveldb/MANIFEST-000001
-2024/05/04-12:24:55.109 2aa3 Recovering log #30
-2024/05/04-12:24:55.110 2aa3 Reusing old log /home/manjanga/.config/discord/Local Storage/leveldb/000030.log 
-2024/05/04-12:28:57.546 2aa3 Level-0 table #36: started
-2024/05/04-12:28:57.567 2aa3 Level-0 table #36: 3068258 bytes OK
-2024/05/04-12:28:57.570 2aa3 Delete type=0 #30
