@@ -1,0 +1,31 @@
+2024-05-04T15:24:55.137Z 0: 
+
+----------------------------------------------
+2024-05-04T15:24:55.151Z 1: Discord starting: {"releaseChannel":"stable","version":"0.0.52"}, modulepath: /home/manjanga/.config/discord/0.0.52/modules
+2024-05-04T15:24:55.155Z 2: ✅ webContents.created web1 ""
+2024-05-04T15:24:55.160Z 3: ✅ window.created win1 "discord"
+2024-05-04T15:24:55.321Z 4: ✅ webContents.did-finish-load web1
+2024-05-04T15:25:02.519Z 5: ✅ webContents.created web2 ""
+2024-05-04T15:25:02.527Z 6: ✅ window.created win2 "Discord"
+2024-05-04T15:25:04.475Z 7: ✅ webContents.did-finish-load web2
+2024-05-04T15:25:04.575Z 8: window.close win1
+2024-05-04T15:25:04.582Z 9: webContents.destroyed web1
+2024-05-04T15:25:04.585Z 10: window.closed win1
+2024-05-04T15:46:35.699Z 11: window.close win2
+2024-05-04T15:46:42.657Z 12: before-quit
+2024-05-04T15:46:42.669Z 13: window.close win2
+2024-05-04T15:46:42.790Z 14: webContents.destroyed web2
+2024-05-06T14:02:51.014Z 0: 
+
+----------------------------------------------
+2024-05-06T14:02:51.027Z 1: Discord starting: {"releaseChannel":"stable","version":"0.0.52"}, modulepath: /home/manjanga/.config/discord/0.0.52/modules
+2024-05-06T14:02:51.035Z 2: ✅ webContents.created web1 ""
+2024-05-06T14:02:51.039Z 3: ✅ window.created win1 "discord"
+2024-05-06T14:02:51.250Z 4: ✅ webContents.did-finish-load web1
+2024-05-06T14:02:51.580Z 5: ✅ webContents.created web2 ""
+2024-05-06T14:02:51.589Z 6: ✅ window.created win2 "Discord"
+2024-05-06T14:02:53.310Z 7: ✅ webContents.did-finish-load web2
+2024-05-06T14:02:53.410Z 8: window.close win1
+2024-05-06T14:02:53.414Z 9: webContents.destroyed web1
+2024-05-06T14:02:53.418Z 10: window.closed win1
+2024-05-06T14:02:54.667Z 11: ✅ webContents.did-finish-load web2
