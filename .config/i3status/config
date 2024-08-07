@@ -11,13 +11,11 @@ general {
     interval = 5
 }
 
-order += "ipv6"
 order += "wireless _first_"
 order += "ethernet _first_"
 order += "disk /"
 order += "disk /home"
 order += "cpu_usage"
-order += "load"
 order += "memory"
 order += "volume master"
 order += "battery 0"
@@ -45,14 +43,8 @@ cpu_usage {
     format = "CPU: %cpu0"
 }
 
-load {
-    format = "Load: %1min"
-}
-
 memory {
-    format = "Used: %used | Available: %available"
-    threshold_degraded = "1G"
-    format_degraded = "MEMORY < %available"
+    format = "Used: %used"
 }
 
 tztime local {
@@ -68,11 +60,14 @@ volume master {
 }
 
 battery 0 {
-    format = "%status %percentage"
+    format = "%status: %percentage"
     format_down = "NO BATTERY"
+    last_full_capacity = true
+    integer_battery_capacity = true
+    low_threshold = 10
+    threshold_type = percentage
     status_chr = "CHARGING"
     status_bat = "BATTERY"
     status_unk = "???"
     status_full = "FULL"
-    low_threshold = 10
 }

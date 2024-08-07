@@ -16,6 +16,7 @@ dependencias necessarias:
 - pavucontrol
 - feh
 - imagemagick
+- brightnessctl
 
 add:
 ```
@@ -30,3 +31,8 @@ picom -CGb &
 exec i3  
 ```
 to .xinitrc
+
+add fonts to:
+```
+~/.local/share/fonts
+```
