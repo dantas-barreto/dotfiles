@@ -63,7 +63,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id dmenu_run
 
 # lock screen (lock script)
-bindsym $mod+x exec lock
+bindsym $mod+x exec "~/dotfiles/scripts/lock"
 
 # start dmenu with sudo
 # yet to do
