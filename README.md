@@ -1,5 +1,35 @@
 # dotfiles
 
+### Opções do archinstall
+- Archinstall language: English
+- Locales:
+  - Keyboard layout: us
+  - Locale language: en_US
+  - Locale encoding: UTF-8
+- Mirrors:
+  - Mirror regions: Brazil
+- Disk configuration:
+  - Configuration type: Best-effort (ext4)
+- Disk encryption: none
+- Swap: Enabled
+- Bootloader: Grub
+- Hostname: _nome da máquina_
+- Root password: _senha root_
+- User account: _seu nome de usuário e senha_
+- Profile:
+  - Type: Xorg
+  - Graphic driver: All open-source
+  - Greeter: não é necessário
+- Audio: pulseaudio
+- Kernel: default
+- Network configuration: NetworkManager
+- Additional packages: none
+- Optional repositories: multilib
+- Timezone:
+- Automatic time sync: Enabled
+
+---
+
 dependencias necessarias:
 - xorg
 - xorg-xinit
@@ -17,22 +47,34 @@ dependencias necessarias:
 - feh
 - imagemagick
 - brightnessctl
+- webkit2gtk
+- gcr
 
-add:
+adicione:
 ```
 exec startx
 ```
-to .bash_profile
+em .bash_profile
 
-add:
+se dwm:
+```
+while xsetroot -name "`date` `uptime | sed 's/.*,//'`"
+do
+    sleep 1
+done
+exec dwm
+```
+em .xinitrc
+
+se i3:
 ```
 nitrogen --restore &  
 picom -CGb &  
 exec i3  
 ```
-to .xinitrc
+em .xinitrc
 
-add fonts to:
+adicione suas fontes em:
 ```
 ~/.local/share/fonts
 ```
