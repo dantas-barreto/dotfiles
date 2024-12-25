@@ -50,23 +50,46 @@ dependencias necessarias:
 - webkit2gtk
 - gcr
 
-adicione:
+adicionar:
 ```
 exec startx
 ```
 em .bash_profile
 
-se dwm:
+a configuração padrão é dwm: 
 ```
-exec dwm
-```
-em .xinitrc
+# dwm configuration
+while true; do
+    # Time & Date
+    DATE=$(date '+%d/%m/%Y %H:%M:%S')
 
-se i3:
-```
-nitrogen --restore &  
-picom -CGb &  
-exec i3  
+    # Memory
+    MEM=$(free -h | awk '/^Mem/ { print $3"/"$2 }')
+
+    # CPU
+    CPU=$(top -bn1 | grep "Cpu(s)" | awk '{ print $2 + $4 }' | awk '{ printf "%.2f%%", $1 }')
+
+    # Wi-Fi
+    WIFI=$(nmcli -t -f ACTIVE, SSID dev wifi | grep '^yes' | cut -d: -f2)
+    if [ -z "$WIFI" ]; then
+        WIFI_STATUS="Disconected"
+    else
+        WIFI_STATUS="$WIFI"
+    fi
+
+    # Ethernet
+    ETHERNET=$(nmcli -t -f DEVICE, STATE dev | grep ethernet | grep -q connected && echo "Connected" || echo "Disconnected")
+
+    # Disk Usage
+    DISK=$(df -h / | awk '/\// { print $3 "/" $2 })
+
+    # Bar
+    xsetroot -name " WIFI: $WIFI_STATUS | ETH: $ETHERNET | DISK: $DISK | CPU: $CPU | MEM: $MEM | $DATE "
+
+# i3 configuration
+#nitrogen --restore &  
+#picom -CGb &  
+#exec i3  
 ```
 em .xinitrc
 
