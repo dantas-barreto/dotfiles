@@ -2,10 +2,8 @@
 
 $icon="$HOME/.config/i3/lock.png"
 
-# creating a temp file
 img=$(mktemp /tmp/XXXXXXXXXX.png)
 
-# taking a screenshot of current desktop
 import -window root $img
 
 # pixelate screenshot
