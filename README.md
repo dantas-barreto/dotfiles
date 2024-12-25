@@ -2,7 +2,7 @@
 
 Este tutorial descreve como instalar o Arch Linux usando as opções predefinidas do archinstall, bem como as configurações necessárias para configurar um sistema com o gerenciador de janelas `dwm` ou `i3`
 
-# Passo 1: Setup do `archinstall`
+## Passo 1: Setup do `archinstall`
 
 Durante a instalação, escolha as seguintes opções no `archinstall`
 
@@ -52,7 +52,7 @@ Durante a instalação, escolha as seguintes opções no `archinstall`
 
 ---
 
-# Passo 2: Instalar Dependências Necessárias
+## Passo 2: Instalar Dependências Necessárias
 Após concluir a instalação base, reinicie o sistema e instale os seguintes pacotes:
 ```
 sudo pacman -Syu base-devel curl xorg xorg-xinit i3 neovim firefox alacritty nitrogen picom git ranger thunar pavucontrol feh imagemagick brightnessctl webkit2gtk gcr
@@ -80,14 +80,14 @@ cd dmenu
 sudo make clean install
 ```
 
-# Passo 3: Configurar o `bash_profile`
+## Passo 3: Configurar o `bash_profile`
 
 Adicione o comando para iniciar o ambiente gráfico automaticamente no arquivo `~/.bash_profile`
 ```
 exec startx
 ```
 
-# Passo 4: Configurar o Ambiente Gráfico
+## Passo 4: Configurar o Ambiente Gráfico
 
 ### Configuração Padrão com `dwm`
 Crie ou edite o arquivo `~/.xinitrc` com a seguinte configuração:
@@ -133,7 +133,7 @@ picom -CGb &
 exec i3  
 ```
 
-# Passo 5: Configurar o Wallpaper com `nitrogen`
+## Passo 5: Configurar o Wallpaper com `nitrogen`
 Para definir o Wallpaper com o `nitrogen`, siga os passos abaixo:
 
 1. Abra o `nitrogen`
@@ -143,14 +143,14 @@ nitrogen
 2. Navegue até o diretório onde suas imagens de wallpaper estão armazenadas (Há um diretório de Wallpapers neste repositório).
 3. Selecione o Wallpaper desejado e clique em **Apply** para aplicá-lo.
  
-# Passo 6: Garantir o funcionamento dos Scripts
+## Passo 6: Garantir o funcionamento dos Scripts
 Certifique-se de que os scripts estejam executáveis. Use o comando:
 ```
 chmod +x nome_do_script.sh
 ```
 Adicione o caminho do script ao `~/.xinitrc` ou ao seu gerenciador de janela com um atalho.
 
-# Opcional: Adicionar Fontes Personalizadas
+## Opcional: Adicionar Fontes Personalizadas
 Caso queira personalizar seu sistema mais a fundo, você pode adicionar suas fontes em:
 ```
 ~/.local/share/fonts
