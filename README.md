@@ -50,8 +50,6 @@ Durante a instalação, escolha as seguintes opções no `archinstall`
 - **Timezone**: *conforme sua localização*
 - **Automatic time sync**: `Enabled`
 
----
-
 ## Passo 2: Instalar Dependências Necessárias
 Após concluir a instalação base, reinicie o sistema e instale os seguintes pacotes:
 ```
