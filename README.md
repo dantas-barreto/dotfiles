@@ -127,7 +127,7 @@ Para usar o `i3`, configure o arquivo `~/.xinitrc` assim:
 ```
 # i3 configuration
 nitrogen --restore &  
-picom -CGb &  
+picom &  
 exec i3  
 ```
 
