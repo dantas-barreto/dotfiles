@@ -95,8 +95,23 @@ while true; do
     # Time & Date
     DATE=$(date '+%d/%m/%Y %H:%M:%S')
 
+    # Battery Status
+    BATTERY=$(cat /sys/class/power_supply/BAT0/capacity)
+    BATTERY_STATUS=$(cat /sys/class/power_supply/BAT0/status)
+
+    if [ "$BATTERY_STATUS" = "Charging" ]; then
+        BATTERY_DISPLAY="$BATTERY% (Charging)"
+    elif [ "$BATTERY_STATUS" = "Full" ]; then
+        BATTERY_DISPLAY="$BATTERY% (Full)"
+    else
+        BATTERY_DISPLAY="$BATTERY%"
+    fi
+
+    # Keyboard Layout
+    KB_LAYOUT=$(setxkbmap -query | grep layout | awk '{print $2}')
+
     # Memory
-    MEM=$(free -h | awk '/^Mem/ { print $3"/"$2 }')
+    MEM=$(free -h | awk '/^Mem/ { print $3 }')
 
     # CPU
     CPU=$(top -bn1 | grep "Cpu(s)" | awk '{ print $2 + $4 }' | awk '{ printf "%.2f%%", $1 }')
@@ -113,10 +128,27 @@ while true; do
     ETHERNET=$(nmcli -t -f DEVICE, STATE dev | grep ethernet | grep -q connected && echo "Connected" || echo "Disconnected")
 
     # Disk Usage
-    DISK=$(df -h / | awk '/\// { print $3 "/" $2 })
+    DISK=$(df -h / | awk '/\// { print $2 })
+
+    # Volume
+    VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -n 1)
+    VOLUME_MUTED=$(pactl get-sink-mute @DEFAULT_SINK@ | grep -q "yes" && echo "Off" || echo "On")
+    if [ "$VOLUME_MUTED" = "Off" ]; then
+        VOLUME_DISPLAY="$VOLUME_MUTED"
+    else
+        VOLUME_DISPLAY="$VOLUME"
+    fi
+
+    # Brightness
+    BRIGHTNESS=$(brightnessctl get)
+    MAX_BRIGHTNESS=$(brightnessctl max)
+    BRIGHTNESS_DISPLAY=$((BRIGHTNESS * 100 / MAX_BRIGHTNESS))
+
+    # Microphone
+    MIC_MUTED=$(pactl get-source-mute @DEFAULT_SOURCE@ | grep -q       "yes" && echo "Off" || echo "On")
 
     # Bar
-    xsetroot -name " WIFI: $WIFI_STATUS | ETH: $ETHERNET | DISK: $DISK | CPU: $CPU | MEM: $MEM | $DATE "
+    xsetroot -name " WIFI: $WIFI_STATUS | ETH: $ETHERNET | DISK: $DISK | CPU: $CPU | MEM: $MEM | KBD: $KB_LAYOUT | BRT: $BRIGHTNESS_DISPLAY% | BAT: $BATTERY_DISPLAY | MIC: $MIC_MUTED | VOL: $VOLUME_DISPLAY | $DATE "
 done &
 nitrogen --restore &
 exec dwm
