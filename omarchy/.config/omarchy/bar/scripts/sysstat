@@ -1,0 +1,47 @@
+#!/bin/bash
+# Bar widget output for CPU, RAM and GPU usage (Waybar-style JSON).
+# Usage: sysstat cpu|ram|gpu
+
+state="${XDG_RUNTIME_DIR:-/tmp}/omarchy-sysstat-cpu"
+
+json() { printf '{"text":"%s","tooltip":"%s","class":"%s"}\n' "$1" "$2" "$3"; }
+level() { (( $1 >= 90 )) && echo active || echo normal; }
+
+case "$1" in
+cpu)
+  read -r _ user nice system idle iowait irq softirq steal _ < /proc/stat
+  total=$((user + nice + system + idle + iowait + irq + softirq + steal))
+  busy=$((total - idle - iowait))
+  read -r prev_total prev_busy 2>/dev/null < "$state"
+  echo "$total $busy" > "$state"
+  dt=$((total - ${prev_total:-0}))
+  pct=$(( dt > 0 ? 100 * (busy - ${prev_busy:-0}) / dt : 0 ))
+  temp=$(sensors -j 2>/dev/null | jq -r '[.[] | objects | to_entries[] | select(.key | test("Tctl|Package")) | .value | to_entries[] | select(.key | endswith("_input")) | .value][0] // empty' 2>/dev/null)
+  tip="CPU: ${pct}%\\nLoad: $(cut -d' ' -f1-3 /proc/loadavg)"
+  [[ -n $temp ]] && tip+="\\nTemp: ${temp%.*}°C"
+  json "󰻠 ${pct}%" "$tip" "$(level $pct)"
+  ;;
+ram)
+  read -r total avail < <(awk '/^MemTotal/{t=$2} /^MemAvailable/{a=$2} END{print t, a}' /proc/meminfo)
+  used=$((total - avail))
+  pct=$((100 * used / total))
+  gib() { awk -v k="$1" 'BEGIN{printf "%.1f", k/1048576}'; }
+  json "󰍛 ${pct}%" "RAM: $(gib $used) / $(gib $total) GiB" "$(level $pct)"
+  ;;
+gpu)
+  # Pick the GPU with the most VRAM (the discrete card on hybrid systems)
+  best="" best_vram=0
+  for dev in /sys/class/drm/card[0-9]*/device; do
+    [[ -r $dev/gpu_busy_percent ]] || continue
+    vram=$(cat "$dev/mem_info_vram_total" 2>/dev/null || echo 0)
+    (( vram >= best_vram )) && best=$dev best_vram=$vram
+  done
+  if [[ -z $best ]]; then json "󰢮 --" "No GPU usage sensor found" normal; exit; fi
+  pct=$(cat "$best/gpu_busy_percent")
+  used=$(cat "$best/mem_info_vram_used" 2>/dev/null || echo 0)
+  temp=$(cat "$best"/hwmon/hwmon*/temp1_input 2>/dev/null | head -1)
+  tip="GPU: ${pct}%\\nVRAM: $((used / 1048576)) / $((best_vram / 1048576)) MiB"
+  [[ -n $temp ]] && tip+="\\nTemp: $((temp / 1000))°C"
+  json "󰢮 ${pct}%" "$tip" "$(level $pct)"
+  ;;
+esac

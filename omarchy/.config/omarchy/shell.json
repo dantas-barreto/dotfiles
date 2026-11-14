@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "idle": {
+    "screensaver": 150,
+    "lock": 300
+  },
+  "bar": {
+    "position": "top",
+    "transparent": false,
+    "layout": {
+      "left": [
+        {
+          "id": "omarchy.menu"
+        },
+        {
+          "id": "omarchy.workspaces"
+        }
+      ],
+      "center": [
+        {
+          "id": "omarchy.clock",
+          "format": "dddd HH:mm",
+          "formatAlt": "d MMMM 'W'ww yyyy",
+          "verticalFormat": "HH\n—\nmm"
+        }
+      ],
+      "right": [
+        {
+          "id": "omarchy.tray"
+        },
+        {
+          "id": "omarchy.keyboard-layout"
+        },
+        {
+          "id": "cpu",
+          "type": "command",
+          "exec": "~/.config/omarchy/bar/scripts/sysstat cpu",
+          "interval": 2,
+          "tooltip": "CPU",
+          "onClick": "omarchy-launch-or-focus-tui btop"
+        },
+        {
+          "id": "ram",
+          "type": "command",
+          "exec": "~/.config/omarchy/bar/scripts/sysstat ram",
+          "interval": 2,
+          "tooltip": "RAM",
+          "onClick": "omarchy-launch-or-focus-tui btop"
+        },
+        {
+          "id": "gpu",
+          "type": "command",
+          "exec": "~/.config/omarchy/bar/scripts/sysstat gpu",
+          "interval": 2,
+          "tooltip": "GPU",
+          "onClick": "omarchy-launch-or-focus-tui btop"
+        },
+        {
+          "id": "omarchy.agents"
+        },
+        {
+          "id": "omarchy.bluetooth"
+        },
+        {
+          "id": "omarchy.network"
+        },
+        {
+          "id": "omarchy.audio"
+        },
+        {
+          "id": "omarchy.monitor"
+        },
+        {
+          "id": "omarchy.power"
+        }
+      ],
+      "centerBegin": [
+        {
+          "id": "omarchy.indicators"
+        }
+      ],
+      "centerEnd": [
+        {
+          "id": "omarchy.elsewhen",
+          "cities": [
+            {
+              "name": "Sao Paulo",
+              "zone": "America/Sao_Paulo"
+            },
+            {
+              "name": "London",
+              "zone": "Europe/London"
+            },
+            {
+              "name": "Dubai",
+              "zone": "Asia/Dubai"
+            },
+            {
+              "name": "Tokyo",
+              "zone": "Asia/Tokyo"
+            },
+            {
+              "name": "Los Angeles",
+              "zone": "America/Los_Angeles"
+            }
+          ]
+        },
+        {
+          "id": "omarchy.weather"
+        },
+        {
+          "id": "omarchy.system-update"
+        }
+      ]
+    }
+  },
+  "plugins": []
+}
