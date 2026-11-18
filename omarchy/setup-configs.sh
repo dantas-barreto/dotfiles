@@ -34,6 +34,7 @@ FILES=(
   nvim/lua/config/options.lua
   nvim/lua/config/autocmds.lua
   nvim/lua/plugins/cpp.lua
+  nvim/lua/plugins/cmake.lua
   nvim/spell/pt.utf-8.spl
 )
 
