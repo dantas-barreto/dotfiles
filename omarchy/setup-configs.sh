@@ -1,16 +1,19 @@
 #!/bin/bash
-# Install the Omarchy configs saved in this folder into ~/.config.
+# Install the Omarchy configs saved in this folder into ~/.config and ~.
 #
 # Usage: ./setup-configs.sh [--dry-run]
 #
 # Each file under ./.config is copied to the same path under ~/.config
-# (or $XDG_CONFIG_HOME). An existing file that differs is first backed up
-# next to itself as <name>.bak.<timestamp>.
+# (or $XDG_CONFIG_HOME), and each file under ./home to the same path under ~.
+# An existing file that differs is first backed up next to itself as
+# <name>.bak.<timestamp>.
 
 set -euo pipefail
 
-SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.config"
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SRC="$HERE/.config"
 DEST="${XDG_CONFIG_HOME:-$HOME/.config}"
+HOME_SRC="$HERE/home"
 STAMP=$(date +%s)
 DRY_RUN=false
 
@@ -38,6 +41,13 @@ FILES=(
   nvim/spell/pt.utf-8.spl
 )
 
+# Files for the home folder itself. The .clang-format is the shared Muse one:
+# clang-format looks for it upwards from each file, so this one covers every
+# repository under ~.
+HOME_FILES=(
+  .clang-format
+)
+
 # True when the destination already holds the same thing as the source.
 same() {
   local src=$1 dest=$2
@@ -48,18 +58,19 @@ same() {
   fi
 }
 
-for file in "${FILES[@]}"; do
-  src="$SRC/$file"
-  dest="$DEST/$file"
+# Copies <from>/<file> to <to>/<file>, backing up a different file already there.
+install_file() {
+  local from=$1 to=$2 file=$3
+  local src="$from/$file" dest="$to/$file"
 
   if [[ ! -e $src && ! -L $src ]]; then
-    echo "missing    $file (not in $SRC)" >&2
+    echo "missing    $file (not in $from)" >&2
     exit 1
   fi
 
   if same "$src" "$dest"; then
     echo "unchanged  $file"
-    continue
+    return
   fi
 
   if [[ -e $dest || -L $dest ]]; then
@@ -73,6 +84,14 @@ for file in "${FILES[@]}"; do
     # -P keeps the spell file as a symlink; -p keeps the executable bit.
     cp -pP "$src" "$dest"
   fi
+}
+
+for file in "${FILES[@]}"; do
+  install_file "$SRC" "$DEST" "$file"
+done
+
+for file in "${HOME_FILES[@]}"; do
+  install_file "$HOME_SRC" "$HOME" "$file"
 done
 
 $DRY_RUN || chmod +x "$DEST/omarchy/bar/scripts/sysstat"
